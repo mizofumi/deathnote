@@ -28,6 +28,8 @@ $_SESSION["Twitter_Tweetcnt"] = $get[statuses_count];
 $_SESSION["Twitter_Followcnt"] = $get[friends_count];
 $_SESSION["Twitter_Followercnt"] = $get[followers_count];
 $_SESSION["Twitter_Favcnt"] = $get[favourites_count];
+
+
 $_SESSION['access_token'] = $token['oauth_token'];
 $_SESSION['access_token_secret'] = $token['oauth_token_secret'];
 

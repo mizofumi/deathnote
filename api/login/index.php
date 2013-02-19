@@ -1,8 +1,6 @@
 <?php
-include '../class/http.php';
 include '../class/sql.php';
 
-$http_status_code = new HTTP_STATUS_CODE();
 $dbsql = new DB_SQL();
 
 /*Password MD5 HASH Create*/
@@ -17,7 +15,7 @@ if($login["Password"] == null){
 	$obj = array('errors' => array('message' => 'LoginPassword', 'code' => '210' ) );
 	echo json_encode($obj);
 } else{
-	$obj = array('message' => 'OK', 'LoggedUserId' => $login["Id"]);
+	$obj = array('message' => 'OK', 'LoggedUserId' => $login["Id"], 'Apikey' => $login["Apikey"]);
 	echo json_encode($obj);
 }
 

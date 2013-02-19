@@ -24,6 +24,8 @@ if($json["errors"]["code"] == 210){
 
 if ($json["message"] == 'OK'){
 	$_SESSION["LoggedUserId"] = $json["LoggedUserId"];
+	$_SESSION["Apikey"] = $json["Apikey"];
+	
 	$redirect_url = "../page";
 }
 

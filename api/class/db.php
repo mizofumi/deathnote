@@ -2,26 +2,29 @@
 
 class DB
 {
-	/* mysql hostname */
-	private $hostname = 'localhost'; 
+	/*** mysql hostname ***/
+	private $hostname = 'localhost'; // Put your host name here
 
-	/* mysql username */
-	private $username = 'test';
+	/*** mysql username ***/
+	private $username = 'test'; // Put your MySQL User name here
 
-	/* mysql password */
-	private $password = 'test';
+	/*** mysql password ***/
+	private $password = 'test'; // Put Your MySQL Password here
 
-	/* mysql databasename */
-	private $dbName = 'test';
+	/*** mysql password ***/
+	private $dbName = 'test'; // Put Your MySQL Database name here
 
 
-	public $dbh = NULL;
+	/*** database resource ***/
+	public $dbh = NULL; // Database handler
 
-	public function __construct()
+	public function __construct() // Default Constructor
 	{
 		try
 		{
 			$this->dbh = new PDO("mysql:host=$this->hostname;dbname=$this->dbName", $this->username, $this->password);
+			/*** echo a message saying we have connected ***/
+			//echo 'Connected to database'; // Test with this string
 		}
 		catch(PDOException $e)
 		{
@@ -31,7 +34,7 @@ class DB
 
 	public function __destruct()
 	{
-		$this->dbh = NULL;
+		$this->dbh = NULL; // Setting the handler to NULL closes the connection propperly
 	}
 
 	public function runQuery($sql)
@@ -51,6 +54,7 @@ class DB
 		{
 			$value = $this->dbh->prepare($sql);
 			$value->execute();
+			//$count = $this->dbh->execute($value) or $count = $this->dbh->errorInfo();
 		}
 		catch(PDOException $e)
 		{
@@ -64,7 +68,7 @@ class DB
 
 	    $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-		return $stmt;
+		return $stmt; // Returns an associative array that can be diectly accessed or looped through with While or Foreach
 	}
 
 }
