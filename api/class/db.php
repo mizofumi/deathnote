@@ -3,28 +3,24 @@
 class DB
 {
 	/*** mysql hostname ***/
-	private $hostname = 'localhost'; // Put your host name here
+	private $hostname = 'localhost';
 
 	/*** mysql username ***/
-	private $username = 'test'; // Put your MySQL User name here
+	private $username = 'test';
+	
+	/*** mysql password ***/
+	private $password = 'test';
 
 	/*** mysql password ***/
-	private $password = 'test'; // Put Your MySQL Password here
+	private $dbName = 'test';
 
-	/*** mysql password ***/
-	private $dbName = 'test'; // Put Your MySQL Database name here
+	public $dbh = NULL;
 
-
-	/*** database resource ***/
-	public $dbh = NULL; // Database handler
-
-	public function __construct() // Default Constructor
+	public function __construct()
 	{
 		try
 		{
 			$this->dbh = new PDO("mysql:host=$this->hostname;dbname=$this->dbName", $this->username, $this->password);
-			/*** echo a message saying we have connected ***/
-			//echo 'Connected to database'; // Test with this string
 		}
 		catch(PDOException $e)
 		{
@@ -34,9 +30,14 @@ class DB
 
 	public function __destruct()
 	{
-		$this->dbh = NULL; // Setting the handler to NULL closes the connection propperly
+		$this->dbh = NULL;
 	}
-
+	
+	public function strQuote($string)
+	{
+		return $this->dbh->quote($string);
+	}
+	
 	public function runQuery($sql)
 	{
 		/*
@@ -68,7 +69,7 @@ class DB
 
 	    $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-		return $stmt; // Returns an associative array that can be diectly accessed or looped through with While or Foreach
+		return $stmt;
 	}
 
 }

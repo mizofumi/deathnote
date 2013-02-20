@@ -35,5 +35,5 @@
 			</p>
 		</div>
 	</div>
-	<input class="btn btn-large btn-primary" type="submit">登録</input>
+	<input class="btn btn-large btn-primary" type="submit"></input>
 </form>

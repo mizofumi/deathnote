@@ -15,10 +15,11 @@ if(!strlen( $dbsql->get_defaultuserid($_SESSION["LoggedUserId"]) )){
 }
 
 echo '<a href="../twitter/login.php">アカウント追加</a>'.'<br>';
+echo '<a href="../logout">ログアウト</a>'.'<br>';
 echo '<a href="../account/change">デフォルトアカウント変更</a>'.'<br>';
 echo '<a href="../account/delete">アカウント削除</a>'.'<br>';
-echo '<a href="">Twitterサーバと同期</a>'.'<br><br>';
-
+echo '<a href="../sync">Twitterサーバと同期</a>'.'<br><br>';
+echo '<a href="../removeaccount">閻魔帳アカウントを削除</a>'.'<br><br>';
 $defaultuserid = $dbsql->get_defaultuserid($_SESSION["LoggedUserId"]);
 $data = $dbsql->get_loggeduser_twitteruser($_SESSION["LoggedUserId"],$defaultuserid,$_SESSION["Apikey"]);
 

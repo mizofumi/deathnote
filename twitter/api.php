@@ -6,26 +6,14 @@ include_once 'twitteroauth.php';
 class TwitterAPI {
 	const APIv = '1.1';
 
-    function __construct($consumer_key, $consumer_secret, $access_token, $access_token_secret)
-    {
-        $this->oauth = new TwitterOAuth(
-            $consumer_key,
-            $consumer_secret,
-            $access_token,
-            $access_token_secret
-        );
-    }
- 
-	public function account_verify_credentials()
-	{
-	            $ikachan = $this->oauth->oAuthRequest(
-	                'https://api.twitter.com/'.self::APIv.'/account/verify_credentials.json',
-	                'GET',
-	                array()
-	            );
+	function __construct($consumer_key, $consumer_secret, $access_token, $access_token_secret) {
+		$this -> oauth = new TwitterOAuth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
+	}
+
+	public function account_verify_credentials() {
+		$ikachan = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/account/verify_credentials.json', 'GET', array());
 		return json_decode($ikachan, true);
 	}
- 
 
 	/*
 	 * 自分のタイムラインを取得
@@ -38,7 +26,7 @@ class TwitterAPI {
 		if ($maxId > 0) {
 			$param[max_id] = $maxId;
 		}
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/statuses/home_timeline.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/statuses/home_timeline.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -47,7 +35,7 @@ class TwitterAPI {
 	 */
 	public function GetStatus($statusId) {
 		$param[include_entities] = 'true';
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/statuses/show' . $statusId . '.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/statuses/show' . $statusId . '.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -55,7 +43,7 @@ class TwitterAPI {
 	 * 指定したStatusIdのステータスを削除
 	 */
 	public function DestroyStatus($statusId) {
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/statuses/destroy/' . $statusId . '.json', 'POST', array());
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/statuses/destroy/' . $statusId . '.json', 'POST', array());
 		return json_decode($geso, true);
 	}
 
@@ -69,7 +57,7 @@ class TwitterAPI {
 		if ($inReplyTo != null) {
 			$param[in_reply_to_status_id] = $inReplyTo;
 		}
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/statuses/update.json', 'POST', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/statuses/update.json', 'POST', $param);
 		return json_decode($geso, true);
 	}
 
@@ -84,7 +72,7 @@ class TwitterAPI {
 		if ($maxId > 0) {
 			$param[max_id] = $maxId;
 		}
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/statuses/mentions_timeline.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/statuses/mentions_timeline.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -104,7 +92,7 @@ class TwitterAPI {
 		if ($maxId > 0) {
 			$param[max_id] = $maxId;
 		}
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/statuses/user_timeline.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/statuses/user_timeline.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -119,7 +107,7 @@ class TwitterAPI {
 		if ($maxId > 0) {
 			$param[mac_id] = $maxId;
 		}
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/statuses/home_timeline.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/statuses/home_timeline.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -129,7 +117,7 @@ class TwitterAPI {
 	public function CreateFavorite($statusId) {
 		$param[id] = $statusId;
 		$param[include_entities] = true;
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/favorites/create.json', 'POST', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/favorites/create.json', 'POST', $param);
 		return json_decode($geso, true);
 	}
 
@@ -139,7 +127,7 @@ class TwitterAPI {
 	public function DestroyFavorite($statusId) {
 		$param[id] = $statusId;
 		$param[include_entities] = true;
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/favorites/destroy.json', 'POST', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/favorites/destroy.json', 'POST', $param);
 		return json_decode($geso, true);
 	}
 
@@ -147,7 +135,7 @@ class TwitterAPI {
 	 * リツイート追加
 	 */
 	public function Retweet($statusId) {
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/statuses/destroy/' . $statusId . '.json', 'POST', array());
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/statuses/destroy/' . $statusId . '.json', 'POST', array());
 		return json_decode($geso, true);
 	}
 
@@ -157,7 +145,7 @@ class TwitterAPI {
 	public function GetUser_screen_name($screen_name) {
 		$param[screen_name] = $screen_name;
 		$param[include_entities] = true;
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/users/show.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/users/show.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -166,7 +154,7 @@ class TwitterAPI {
 	 */
 	public function GetUsers_screen_name($screen_name) {
 		$param[screen_name] = implode(',', $screen_name);
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/users/lookup.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/users/lookup.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -176,7 +164,7 @@ class TwitterAPI {
 	public function GetUser_user_id($user_id) {
 		$param[user_id] = $user_id;
 		$param[include_entities] = true;
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/users/show.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/users/show.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -185,7 +173,7 @@ class TwitterAPI {
 	 */
 	public function GetUsers_user_id($user_id) {
 		$param[user_id] = implode(',', $user_id);
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/users/lookup.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/users/lookup.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -194,7 +182,7 @@ class TwitterAPI {
 	 */
 	public function Follow_screen_name($screen_name) {
 		$param[screen_name] = $screen_name;
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/friendships/create.json', 'POST', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/friendships/create.json', 'POST', $param);
 		return json_decode($geso, true);
 	}
 
@@ -203,7 +191,7 @@ class TwitterAPI {
 	 */
 	public function Remove_screen_name($screen_name) {
 		$param[screen_name] = $screen_name;
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/friendships/destroy.json', 'POST', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/friendships/destroy.json', 'POST', $param);
 		return json_decode($geso, true);
 	}
 
@@ -213,7 +201,7 @@ class TwitterAPI {
 	public function GetRelationship_screen_name($source, $target) {
 		$param[source_screen_name] = $source;
 		$param[target_screen_name] = $target;
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/friendships/show.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/friendships/show.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -222,7 +210,7 @@ class TwitterAPI {
 	 */
 	public function Block($screen_name) {
 		$param[screen_name] = $screen_name;
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/blocks/create.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/blocks/create.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -231,7 +219,7 @@ class TwitterAPI {
 	 */
 	public function UnBlock($screen_name) {
 		$param[screen_name] = $screen_name;
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/blocks/destroy.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/blocks/destroy.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
 
@@ -240,124 +228,105 @@ class TwitterAPI {
 	 */
 	public function ReportSpam($screen_name) {
 		$param[screen_name] = $screen_name;
-		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/'.self::APIv.'/report_spam.json', 'GET', $param);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/report_spam.json', 'GET', $param);
 		return json_decode($geso, true);
 	}
-	
+
 	/*
 	 * 受信したダイレクトメッセージの取得
 	 */
-	 public function GetRecievedDirectMessage($count = 20, $page = 1,$sinceId = -1,$maxId = -1)
-	 {
-		 $param[count] = $count;
-		 $param[page] = $page;
-		 if($sinceId > 0){
-		 	$param[since_id] = $sinceId;
-		 }
-		 if($maxId > 0){
-		 	$param[max_id] = $maxId;
-		 }
-		 $geso = $this->oauth->oAuthRequest('https://api.twiiter.com/'.self::APIv.'/direct_messages.json','GET',$param);
-		 return json_decode($geso,true);
-	 }
-	 
-	 /*
-	  * 送信したダイレクトメッセージの取得
-	  */
-	  public function GetSendDirectMessage($count = 20, $page = 1,$sinceId = -1,$maxId = -1)
-	  {
-		  $param[count] = $count;
-		  $param[page] = $page;
-		 if($sinceId > 0){
-		 	$param[since_id] = $sinceId;
-		 }
-		 if($maxId > 0){
-		 	$param[max_id] = $maxId;
-		 }
-		 $geso = $this->oauth->oAuthRequest('https://api.twiiter.com/'.self::APIv.'/direct_messages/sent.json','GET',$param);
-		 return json_decode($geso,true);
-	  }
-	  
-	  /*
-	   * ダイレクトメッセージscreen_name指定での送信
-	   */
-	   public function SendDirectMessage_screen_name($screen_name, $text)
-	   {
-		   $param[screen_name] = $screen_name;
-		   $param[text] = $text;
-		   $geso = $this->oauth->oAuthRequest('https://api.twitter.com/'.self::APIv.'direct_messages/new.json','POST',$param);
-		   return json_decode($geso,true);
-	   }
-	   
-	   /*
-	    * ダイレクトメッセージuser_id指定での送信
-	    */
-	    public function SendDirectMessage_user_id($user_id, $text)
-		{
-		   $param[user_id] = $user_id;
-		   $param[text] = $text;
-		   $geso = $this->oauth->oAuthRequest('https://api.twitter.com/'.self::APIv.'direct_messages/new.json','POST',$param);
-		   return json_decode($geso,true);
+	public function GetRecievedDirectMessage($count = 20, $page = 1, $sinceId = -1, $maxId = -1) {
+		$param[count] = $count;
+		$param[page] = $page;
+		if ($sinceId > 0) {
+			$param[since_id] = $sinceId;
 		}
-		
-		/*
-		 * 全てのフォロー中のUseridを取得
-		 */
-		public function get_friends($cursor = "-1"){
-			while ($cursor !== "0"){
-				$all_friends = $this->oauth->oAuthRequest(
-					'https://api.twitter.com/'.self::APIv.'/friends/ids.json',
-					'GET',
-					array(
-						'cursor' => $cursor
-					)
-				);		
-				$cursor_info = json_decode($all_friends, true);
-				$cursor = $cursor_info["next_cursor_str"];
-			}
-			return json_decode($all_friends, true);
+		if ($maxId > 0) {
+			$param[max_id] = $maxId;
 		}
-		/*
-		 * 全てのフォロワーのUseridを取得
-		 */
-		public function get_follower($cursor = "-1"){
-			while ($cursor !== "0"){
-				$all_follower = $this->oauth->oAuthRequest(
-					'http://api.twitter.com/'.self::APIv.'/followers/ids.json',
-					'GET',
-					array(
-						'cursor' => $cursor
-					)
-				);		
-				$cursor_info = json_decode($all_follower, true);
-				$cursor = $cursor_info["next_cursor_str"];
-			}
-			return json_decode($all_follower, true);
+		$geso = $this -> oauth -> oAuthRequest('https://api.twiiter.com/' . self::APIv . '/direct_messages.json', 'GET', $param);
+		return json_decode($geso, true);
+	}
+
+	/*
+	 * 送信したダイレクトメッセージの取得
+	 */
+	public function GetSendDirectMessage($count = 20, $page = 1, $sinceId = -1, $maxId = -1) {
+		$param[count] = $count;
+		$param[page] = $page;
+		if ($sinceId > 0) {
+			$param[since_id] = $sinceId;
 		}
-		/*
-		 * 全てのブロック中のUseridを取得
-		 */
-		public function get_blocks($cursor = "-1"){
-			while ($cursor !== "0"){
-				$all_blocks = $this->oauth->oAuthRequest(
-					'http://api.twitter.com/'.self::APIv.'/blocks/ids.json',
-					'GET',
-					array(
-						'cursor' => $cursor
-					)
-				);		
-				$cursor_info = json_decode($all_blocks, true);
-				$cursor = $cursor_info["next_cursor_str"];
-			}
-			return json_decode($all_blocks, true);
+		if ($maxId > 0) {
+			$param[max_id] = $maxId;
 		}
-		/*
-		 * プロフィールバナー取得
-		 */
-		 public function get_profile_banner($user_id)
-		 {
-		 	$param[user_id] = $user_id;
-			$geso = $this->oauth->oAuthRequest('http://api.twitter.com/'.self::APIv.'/users/profile_banner.json','GET',$param);
-			return json_decode($geso,true);
-		 }
+		$geso = $this -> oauth -> oAuthRequest('https://api.twiiter.com/' . self::APIv . '/direct_messages/sent.json', 'GET', $param);
+		return json_decode($geso, true);
+	}
+
+	/*
+	 * ダイレクトメッセージscreen_name指定での送信
+	 */
+	public function SendDirectMessage_screen_name($screen_name, $text) {
+		$param[screen_name] = $screen_name;
+		$param[text] = $text;
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . 'direct_messages/new.json', 'POST', $param);
+		return json_decode($geso, true);
+	}
+
+	/*
+	 * ダイレクトメッセージuser_id指定での送信
+	 */
+	public function SendDirectMessage_user_id($user_id, $text) {
+		$param[user_id] = $user_id;
+		$param[text] = $text;
+		$geso = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . 'direct_messages/new.json', 'POST', $param);
+		return json_decode($geso, true);
+	}
+
+	/*
+	 * 全てのフォロー中のUseridを取得
+	 */
+	public function get_follow($cursor = "-1") {
+		while ($cursor !== "0") {
+			$all_friends = $this -> oauth -> oAuthRequest('https://api.twitter.com/' . self::APIv . '/friends/ids.json', 'GET', array('cursor' => $cursor));
+			$cursor_info = json_decode($all_friends, true);
+			$cursor = $cursor_info["next_cursor_str"];
+		}
+		return json_decode($all_friends, true);
+	}
+
+	/*
+	 * 全てのフォロワーのUseridを取得
+	 */
+	public function get_follower($cursor = "-1") {
+		while ($cursor !== "0") {
+			$all_follower = $this -> oauth -> oAuthRequest('http://api.twitter.com/' . self::APIv . '/followers/ids.json', 'GET', array('cursor' => $cursor));
+			$cursor_info = json_decode($all_follower, true);
+			$cursor = $cursor_info["next_cursor_str"];
+		}
+		return json_decode($all_follower, true);
+	}
+
+	/*
+	 * 全てのブロック中のUseridを取得
+	 */
+	public function get_blocks($cursor = "-1") {
+		while ($cursor !== "0") {
+			$all_blocks = $this -> oauth -> oAuthRequest('http://api.twitter.com/' . self::APIv . '/blocks/ids.json', 'GET', array('cursor' => $cursor));
+			$cursor_info = json_decode($all_blocks, true);
+			$cursor = $cursor_info["next_cursor_str"];
+		}
+		return json_decode($all_blocks, true);
+	}
+
+	/*
+	 * プロフィールバナー取得
+	 */
+	public function get_profile_banner($user_id) {
+		$param[user_id] = $user_id;
+		$geso = $this -> oauth -> oAuthRequest('http://api.twitter.com/' . self::APIv . '/users/profile_banner.json', 'GET', $param);
+		return json_decode($geso, true);
+	}
+
 }
